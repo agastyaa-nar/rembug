@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Rembug Logo</title>
+  <desc id="desc">A blue discussion bubble logo with an R monogram.</desc>
+  <defs>
+    <linearGradient id="markGradient" x1="80" x2="432" y1="64" y2="448" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="0.48" stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#1e40af"/>
+    </linearGradient>
+    <linearGradient id="shineGradient" x1="104" x2="360" y1="76" y2="292" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="softShadow" x="-12%" y="-12%" width="124%" height="132%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#0f172a" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="#eff6ff"/>
+  <path
+    d="M117 91h278c47 0 85 38 85 85v138c0 47-38 85-85 85H259l-93 62c-15 10-35-1-35-19v-48c-55-8-99-55-99-113V176c0-47 38-85 85-85Z"
+    fill="url(#markGradient)"
+    filter="url(#softShadow)"
+  />
+  <path
+    d="M117 91h278c47 0 85 38 85 85v18c-54 44-130 72-215 72-93 0-176-34-229-86 2-50 38-89 81-89Z"
+    fill="url(#shineGradient)"
+  />
+  <circle cx="145" cy="180" r="18" fill="#dbeafe" opacity="0.85"/>
+  <circle cx="367" cy="180" r="18" fill="#dbeafe" opacity="0.85"/>
+  <path
+    d="M174 338V158h94c26 0 47 7 62 20 15 13 23 31 23 54 0 16-4 30-13 42-9 12-21 21-37 27l55 37h-62l-48-34h-28v34h-46Zm46-72h44c13 0 23-3 30-9 7-6 11-14 11-24s-4-18-11-24c-7-6-17-9-30-9h-44v66Z"
+    fill="#ffffff"
+  />
+  <path d="M170 397v-34h98l-51 34h-47Z" fill="#bfdbfe" opacity="0.78"/>
+</svg>
