@@ -7,13 +7,12 @@ class DeleteCommentUseCase {
   async execute(useCasePayload) {
     const { threadId, commentId, owner } = useCasePayload;
 
-    // Pastikan thread ada → kalau tidak, NotFoundError
+    // Pastikan thread ada. Jika tidak, repository akan melempar NotFoundError.
     await this._threadRepository.verifyThreadExist(threadId);
 
-    // Pastikan komentar ada & dimiliki owner → kalau tidak, NotFoundError / AuthorizationError
+    // Pastikan komentar ada dan dimiliki owner.
     await this._commentRepository.verifyCommentOwner(commentId, owner);
 
-    // Soft delete
     await this._commentRepository.deleteComment(commentId);
   }
 }

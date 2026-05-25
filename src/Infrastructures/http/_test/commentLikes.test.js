@@ -178,20 +178,21 @@ describe('/threads/{threadId}/comments/{commentId}/likes endpoint', () => {
     const originalQuery = pool.query;
     pool.query = jest.fn().mockRejectedValue(new Error('Database connection failed'));
 
-    const response = await server.inject({
-      method: 'PUT',
-      url: `/threads/${threadId}/comments/${commentId}/likes`,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    try {
+      const response = await server.inject({
+        method: 'PUT',
+        url: `/threads/${threadId}/comments/${commentId}/likes`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
-    expect(response.statusCode).toEqual(500);
-    const responseJson = JSON.parse(response.payload);
-    expect(responseJson.status).toEqual('error');
-    expect(responseJson.message).toEqual('terjadi kesalahan pada server kami');
-
-    // Restore original pool.query
-    pool.query = originalQuery;
+      expect(response.statusCode).toEqual(500);
+      const responseJson = JSON.parse(response.payload);
+      expect(responseJson.status).toEqual('error');
+      expect(responseJson.message).toEqual('terjadi kegagalan pada server kami');
+    } finally {
+      pool.query = originalQuery;
+    }
   });
 });

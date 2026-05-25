@@ -9,7 +9,7 @@ class AddCommentUseCase {
   async execute(useCasePayload) {
     const { threadId } = useCasePayload;
 
-    // pastikan thread ada → kalau tidak, lempar NotFoundError dari repository
+    // Pastikan thread ada. Jika tidak, repository akan melempar NotFoundError.
     await this._threadRepository.verifyThreadExist(threadId);
 
     const newComment = new NewComment(useCasePayload);

@@ -21,6 +21,9 @@ class GetThreadDetailUseCase {
     const thread = await this._threadRepository.getThreadById(threadId);
     const comments = await this._commentRepository.getCommentsByThreadId(threadId);
     const replies = await this._replyRepository.getRepliesByThreadId(threadId);
+    const commentIds = comments.map((comment) => comment.id);
+    const likeCounts = await this._commentLikeRepository
+      .getLikeCountsByCommentIds(commentIds);
 
     const repliesByCommentId = {};
     replies.forEach((reply) => {
@@ -34,18 +37,11 @@ class GetThreadDetailUseCase {
       repliesByCommentId[commentId].push(detailReply);
     });
 
-    const detailComments = await Promise.all(
-      comments.map(async (comment) => {
-        const likeCount = await this._commentLikeRepository
-          .getLikeCountByCommentId(comment.id);
-
-        return new DetailComment({
-          ...comment,
-          likeCount,
-          replies: repliesByCommentId[comment.id] || [],
-        });
-      }),
-    );
+    const detailComments = comments.map((comment) => new DetailComment({
+      ...comment,
+      likeCount: likeCounts[comment.id] || 0,
+      replies: repliesByCommentId[comment.id] || [],
+    }));
 
     return new DetailThread({
       id: thread.id,

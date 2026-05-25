@@ -112,11 +112,10 @@ describe('GetThreadDetailUseCase', () => {
     mockReplyRepository.getRepliesByThreadId = jest.fn()
       .mockResolvedValue(repliesFromRepo);
 
-    mockCommentLikeRepository.getLikeCountByCommentId = jest.fn()
-      .mockImplementation((commentId) => {
-        if (commentId === 'comment-1') return Promise.resolve(2);
-        if (commentId === 'comment-2') return Promise.resolve(1);
-        return Promise.resolve(0);
+    mockCommentLikeRepository.getLikeCountsByCommentIds = jest.fn()
+      .mockResolvedValue({
+        'comment-1': 2,
+        'comment-2': 1,
       });
 
     const getThreadDetailUseCase = new GetThreadDetailUseCase({
@@ -139,10 +138,8 @@ describe('GetThreadDetailUseCase', () => {
     expect(mockReplyRepository.getRepliesByThreadId)
       .toBeCalledWith(useCasePayload.threadId);
 
-    expect(mockCommentLikeRepository.getLikeCountByCommentId)
-      .toHaveBeenCalledWith('comment-1');
-    expect(mockCommentLikeRepository.getLikeCountByCommentId)
-      .toHaveBeenCalledWith('comment-2');
+    expect(mockCommentLikeRepository.getLikeCountsByCommentIds)
+      .toHaveBeenCalledWith(['comment-1', 'comment-2']);
 
     expect(detailThread).toStrictEqual(expectedThreadDetail);
   });
@@ -204,8 +201,8 @@ describe('GetThreadDetailUseCase', () => {
     mockReplyRepository.getRepliesByThreadId = jest.fn()
       .mockResolvedValue(repliesFromRepo);
 
-    mockCommentLikeRepository.getLikeCountByCommentId = jest.fn()
-      .mockResolvedValue(0);
+    mockCommentLikeRepository.getLikeCountsByCommentIds = jest.fn()
+      .mockResolvedValue({});
 
     const getThreadDetailUseCase = new GetThreadDetailUseCase({
       threadRepository: mockThreadRepository,
