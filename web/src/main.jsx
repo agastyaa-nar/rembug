@@ -8,10 +8,11 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import heroImage from './assets/rembug-hero.png';
 
-const DEFAULT_API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+const normalizeApiBase = (value) => (value || '').replace(/\/+$/, '');
+const DEFAULT_API_BASE = normalizeApiBase(import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000');
 
 const initialState = {
-  apiBase: localStorage.getItem('forum_api_base') || DEFAULT_API_BASE,
+  apiBase: normalizeApiBase(localStorage.getItem('forum_api_base') || DEFAULT_API_BASE),
   accessToken: localStorage.getItem('forum_access_token') || '',
   refreshToken: localStorage.getItem('forum_refresh_token') || '',
   session: JSON.parse(localStorage.getItem('forum_session') || 'null'),
